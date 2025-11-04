@@ -8,6 +8,7 @@ requests==2.32.3
 aiohttp==3.12.14
 # openai-whisper==20250625
 # https://github.com/SYSTRAN/faster-whisper
+ctranslate2==4.6.0
 faster-whisper==1.2.1
 minio==7.2.18
 pydub==0.25.1

@@ -1,5 +1,5 @@
 from data.config import S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY, S3_SECURE, S3_REGION, BUSINESS_LOGIC_SERVICE, \
-    BUSINESS_LOGIC_API_KEY, WHISPER_MODEL_NAME, S3_BUCKET
+    BUSINESS_LOGIC_API_KEY, S3_BUCKET
 from service.DownloadService import DownloadService
 from service.SendService import SendService
 from service.TranscriptionService import TranscriptionService
@@ -24,9 +24,8 @@ class AudioDownloadTranscriptionService:
     def record(self,
                record_id: int):
         temp_path = None
-        object_name = str(record_id)
         try:
-            temp_path = self.download_service.download_temp_audio(self.bucket_name, object_name)
+            temp_path = self.download_service.download_temp_audio(self.bucket_name, record_id)
             segments = self.transcription_service.transcribe(temp_path)
             self.send_service.send_transcription(record_id, segments)
         finally:

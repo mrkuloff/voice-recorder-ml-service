@@ -25,10 +25,10 @@ class DownloadService:
             secure=secure,
             region=region
         )
-    def download_temp_audio(self, bucket_name: str, object_name: str) -> str:
+    def download_temp_audio(self, bucket_name: str, record_id: int) -> str:
         if not self.client.bucket_exists(bucket_name):
             logger.error(f"Bucket '{bucket_name}' does not exist")
-
+        object_name = f"{record_id}.m4a"
         # расширение
         _, ext = os.path.splitext(object_name)
         if not ext:
@@ -51,7 +51,7 @@ class DownloadService:
             logger.error(f"S3 error: {err}")
             raise
         except Exception as ex:
-            logger.error(f"General error: {ex}")
+            logger.exception(f"General error: {ex}")
             raise
 
     @staticmethod
