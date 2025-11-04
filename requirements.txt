@@ -1,0 +1,13 @@
+asyncpg==0.30.0
+aio-pika==9.5.5
+faststream[cli]==0.5.39
+aiorabbit==1.0.0
+pydantic==2.9.2
+logging==0.4.9.6
+requests==2.32.3
+aiohttp==3.12.14
+# openai-whisper==20250625
+# https://github.com/SYSTRAN/faster-whisper
+faster-whisper==1.2.1
+minio==7.2.18
+pydub==0.25.1
