@@ -22,7 +22,7 @@ class SendService:
     def _make_headers(self) -> dict[str, str]:
         return {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
+            "X-API-Key": f"{self.api_key}"
         }
 
     def send_transcription(self,

@@ -2,6 +2,8 @@ import os
 import tempfile
 
 import logging
+from typing import Optional
+
 from minio import Minio, S3Error
 
 from data.config import S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY, S3_SECURE, S3_REGION
@@ -25,7 +27,7 @@ class DownloadService:
             secure=secure,
             region=region
         )
-    def download_temp_audio(self, bucket_name: str, record_id: int) -> str:
+    def download_temp_audio(self, bucket_name: str, record_id: int) -> Optional[str]:
         if not self.client.bucket_exists(bucket_name):
             logger.error(f"Bucket '{bucket_name}' does not exist")
         object_name = f"{record_id}.m4a"
@@ -40,6 +42,12 @@ class DownloadService:
         tmp_file.close()
 
         try:
+            self.client.stat_object(bucket_name, object_name)
+        except S3Error as err:
+            logger.error(f"S3 error: {err}")
+            return None
+
+        try:
             self.client.fget_object(
                 bucket_name=bucket_name,
                 object_name=object_name,
@@ -49,10 +57,10 @@ class DownloadService:
             return tmp_path
         except S3Error as err:
             logger.error(f"S3 error: {err}")
-            raise
+            return None
         except Exception as ex:
             logger.exception(f"General error: {ex}")
-            raise
+            return None
 
     @staticmethod
     def cleanup_temp_file(file_path: str) -> None:

@@ -23,9 +23,10 @@ class AudioDownloadTranscriptionService:
 
     def record(self,
                record_id: int):
-        temp_path = None
+        temp_path = self.download_service.download_temp_audio(self.bucket_name, record_id)
         try:
-            temp_path = self.download_service.download_temp_audio(self.bucket_name, record_id)
+            if temp_path is None:
+                return
             segments = self.transcription_service.transcribe(temp_path)
             self.send_service.send_transcription(record_id, segments)
         finally:
