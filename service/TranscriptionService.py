@@ -5,7 +5,7 @@ from faster_whisper import WhisperModel
 from pydantic_model.model import SegmentsModel, TranscriptionModel
 
 logger = logging.getLogger(__name__)
-
+logging.getLogger("faster_whisper").setLevel(logging.DEBUG)
 
 class TranscriptionService:
     """
@@ -13,8 +13,8 @@ class TranscriptionService:
     """
 
     def __init__(self,
-                 model_size: str = "medium",
-                 device: str = "cpu",
+                 model_size: str = "tiny",
+                 device: str = "auto",
                  beam_size: int = 5,
                  language: str = "ru"):
         self.model = WhisperModel(model_size, device=device)
@@ -45,7 +45,7 @@ class TranscriptionService:
                         text=segment.text.strip()
                     )
                 )
-
+            logger.info(f"Segments: {result_segments}")
             logger.info(f"Transcription completed for {file_path}. "
                         f"Total segments: {len(result_segments)}")
 
