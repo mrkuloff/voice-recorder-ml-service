@@ -16,4 +16,4 @@ logging.basicConfig(level=logging.INFO)
 @broker.subscriber("audio-transcription")
 async def handle(record_id: PositiveInt):
    audio_transcribe = AudioDownloadTranscriptionService()
-   await asyncio.to_thread(audio_transcribe.record(record_id=record_id))
+   await asyncio.to_thread(audio_transcribe.record, record_id=record_id)
