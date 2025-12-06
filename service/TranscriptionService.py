@@ -1,4 +1,5 @@
 import logging
+import os
 
 from faster_whisper import WhisperModel
 
@@ -25,6 +26,7 @@ class TranscriptionService:
 
     def transcribe(self, file_path: str) -> SegmentsModel:
         logger.info(f"Starting transcription for {file_path}")
+        logger.info(f"Transcribing file {file_path}, size={os.path.getsize(file_path)}")
 
         try:
             segments, _ = self.model.transcribe(

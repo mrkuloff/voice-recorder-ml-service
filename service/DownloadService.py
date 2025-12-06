@@ -34,12 +34,11 @@ class DownloadService:
         # расширение
         _, ext = os.path.splitext(object_name)
         if not ext:
-            ext = ".bin"
+            ext = ".m4a"
 
         # временный файл для дальнейшей работы
         tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=ext)
         tmp_path = tmp_file.name
-        tmp_file.close()
 
         try:
             self.client.stat_object(bucket_name, object_name)
@@ -53,6 +52,7 @@ class DownloadService:
                 object_name=object_name,
                 file_path=tmp_path
             )
+            tmp_file.close()
             logger.info(f"Downloaded '{object_name}' to temporary file: {tmp_path}")
             return tmp_path
         except S3Error as err:

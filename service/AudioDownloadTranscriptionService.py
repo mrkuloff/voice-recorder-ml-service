@@ -1,3 +1,5 @@
+import os
+
 from data.config import S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY, S3_SECURE, S3_REGION, BUSINESS_LOGIC_SERVICE, \
     BUSINESS_LOGIC_API_KEY, S3_BUCKET
 from service.DownloadService import DownloadService
