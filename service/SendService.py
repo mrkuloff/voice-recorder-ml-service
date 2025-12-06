@@ -32,7 +32,7 @@ class SendService:
         headers = self._make_headers()
 
         payload = {
-            "segments": segments.model_dump()
+            segments.model_dump()
         }
 
         logger.info(f"Request payload {payload}")
