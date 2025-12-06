@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class TranscriptionModel(BaseModel):
-    start: int
-    end: int
+    start: float
+    end: float
     text: str
 
 class SegmentsModel(BaseModel):

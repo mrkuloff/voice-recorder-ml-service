@@ -32,8 +32,10 @@ class SendService:
         headers = self._make_headers()
 
         payload = {
-            "segments": segments.model_dump()
+            "segments": [segment.model_dump() for segment in segments]
         }
+
+        logger.info(f"Request payload {payload}")
 
         response = requests.post(url, json=payload, headers=headers)
         try:

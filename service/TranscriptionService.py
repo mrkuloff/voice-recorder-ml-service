@@ -40,8 +40,8 @@ class TranscriptionService:
                 logger.debug(f"[{segment.start:.2f}s -> {segment.end:.2f}s] {segment.text}")
                 result_segments.append(
                     TranscriptionModel(
-                        start=int(segment.start),
-                        end=int(segment.end),
+                        start=float(segment.start),
+                        end=float(segment.end),
                         text=segment.text.strip()
                     )
                 )
