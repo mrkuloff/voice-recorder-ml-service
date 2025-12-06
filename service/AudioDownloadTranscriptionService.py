@@ -33,4 +33,4 @@ class AudioDownloadTranscriptionService:
             self.send_service.send_transcription(record_id, segments)
         finally:
             if temp_path:
-                self.download_service.cleanup_temp_file(temp_path)
+                self.download_service.cleanup_temp_dir(temp_path)
