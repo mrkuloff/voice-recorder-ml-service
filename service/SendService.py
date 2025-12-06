@@ -31,9 +31,8 @@ class SendService:
         url = f"{self.backend_url}/records/{record_id}/transcribe"
         headers = self._make_headers()
 
-        payload = {
-            segments.model_dump()
-        }
+        payload = segments.model_dump()
+
 
         logger.info(f"Request payload {payload}")
 
